@@ -1,0 +1,62 @@
+# Cấu hình hệ thống hybrid retrieval tiếng Việt.
+# Mọi tham số (model, chunk size, overlap, top-k, RRF k, ...) đọc từ file này; code không hardcode.
+# Đường dẫn tương đối được tính từ thư mục chứa file cấu hình.
+# Có thể trỏ tới file cấu hình khác bằng biến môi trường VIET_RETRIEVE_CONFIG.
+
+paths:
+  raw_dir: data/raw            # văn bản đầu vào (.txt, .md)
+  index_dir: data/index        # artifact sinh ra: chunks.jsonl, bm25_tokens.json, faiss.index, manifest.json
+
+chunking:
+  chunk_size: 120              # số từ tối đa mỗi đoạn ("từ" = âm tiết tách bằng khoảng trắng)
+  chunk_overlap: 30            # số từ gối đầu tối đa giữa 2 đoạn liên tiếp (lấy theo câu nguyên vẹn)
+  respect_sections: true       # không gộp nội dung của hai mục (heading) khác nhau vào một đoạn
+  min_chunk_words: 12          # phần đuôi mới ngắn hơn ngưỡng này được gộp vào đoạn trước
+  include_headings: true       # thêm "Tiêu đề văn bản > Mục" vào nội dung dùng để index
+
+sparse:
+  tokenizer: underthesea       # underthesea (tách từ ghép) | syllable (tách theo âm tiết, không cần thư viện)
+  lowercase: true
+  remove_stopwords: true
+  k1: 1.5                      # tham số BM25Okapi
+  b: 0.75
+
+dense:
+  model_name: intfloat/multilingual-e5-small
+  query_prefix: "query: "      # e5 yêu cầu tiền tố cho câu hỏi ...
+  passage_prefix: "passage: "  # ... và cho đoạn văn
+  batch_size: 16               # số đoạn mã hoá mỗi lượt (giữ nhỏ để tiết kiệm RAM)
+  max_seq_length: 512
+  device: cpu
+  release_after_use: false     # embedder nhỏ, dùng cho mọi truy vấn dense nên giữ lại trong RAM
+
+fusion:
+  rrf_k: 60                    # hằng số k trong RRF: score = sum(w / (k + rank))
+  candidates_per_retriever: 50 # số ứng viên lấy từ mỗi retriever trước khi gộp
+  bm25_weight: 1.0             # trọng số w của từng retriever trong RRF (1.0 = RRF chuẩn)
+  dense_weight: 1.0
+
+reranker:
+  # Cross-encoder đa ngữ có tiếng Việt trong dữ liệu huấn luyện (mMARCO), ~118M tham số.
+  # Thay thế đã thử: BAAI/bge-reranker-base (~278M, chủ yếu Anh/Trung) — xem eval/results.md.
+  model_name: cross-encoder/mmarco-mMiniLMv2-L12-H384-v1
+  candidates: 20               # số ứng viên sau RRF đưa vào cross-encoder
+  batch_size: 8                # số cặp (câu hỏi, đoạn) mỗi lượt suy luận
+  max_length: 512
+  device: cpu
+  release_after_use: true      # nạp lazy khi cần xếp hạng lại, giải phóng ngay sau khi xong
+
+retrieval:
+  top_k: 5
+  default_mode: hybrid_rerank  # bm25 | dense | hybrid | hybrid_rerank
+
+eval:
+  seed_path: eval/questions_seed.yaml   # câu hỏi + đoạn trích bằng chứng (độc lập với cách chia đoạn)
+  eval_set_path: eval/eval_set.jsonl    # sinh bởi eval/make_eval_set.py: câu hỏi -> id đoạn đúng
+  results_path: eval/results.md
+  runs_dir: eval/runs                   # kết quả chi tiết từng truy vấn (jsonl)
+  batch_size: 10                        # số truy vấn mỗi batch đánh giá
+  ks: [1, 5, 10]                        # Recall@k; MRR và nDCG tính trên top max(ks)
+  ndcg_k: 5
+  modes: [bm25, dense, hybrid, hybrid_rerank]
+  extra_rerankers: [BAAI/bge-reranker-base]  # thêm dòng "hybrid + reranker" với các model khác để so sánh

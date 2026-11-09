@@ -1,0 +1,21 @@
+# Phiên bản đã kiểm tra với Python 3.11 trên CPU (Linux x86_64).
+#
+# QUAN TRỌNG: cài torch bản CPU TRƯỚC, nếu không pip sẽ kéo bản CUDA (~3 GB thư viện nvidia):
+#   pip install torch==2.15.0 --index-url https://download.pytorch.org/whl/cpu
+#   pip install -r requirements.txt
+torch==2.15.0
+
+# Embedding + cross-encoder
+sentence-transformers==6.2.0
+transformers==5.22.2
+
+# Vector store + BM25 + tách từ tiếng Việt
+faiss-cpu==1.15.1
+rank-bm25==0.2.2
+underthesea==9.5.0
+numpy==2.4.6
+
+# Cấu hình, demo, kiểm thử
+pyyaml==6.0.3
+streamlit==1.67.0
+pytest==9.2.0

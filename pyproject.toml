@@ -1,0 +1,16 @@
+# Chỉ chứa cấu hình công cụ; phụ thuộc được khai báo trong requirements.txt.
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+addopts = "-ra -m 'not slow'"
+markers = [
+    "slow: cần model đã tải về (chạy riêng bằng: pytest -m slow)",
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]

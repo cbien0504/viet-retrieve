@@ -1,0 +1,13 @@
+{
+  "data_fingerprint": "1e46cbbcc2b7316afe122bc1b7cc3d13198fd3d8e30eddcbd3001493bf9dc163",
+  "chunking": {
+    "chunk_size": 120,
+    "chunk_overlap": 30,
+    "respect_sections": true,
+    "min_chunk_words": 12,
+    "include_headings": true
+  },
+  "created_at": "2026-11-09T03:28:31+00:00",
+  "num_questions": 50,
+  "num_chunks_in_corpus": 183
+}

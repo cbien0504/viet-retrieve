@@ -1,0 +1,262 @@
+# Bộ câu hỏi đánh giá — DỮ LIỆU TỔNG HỢP.
+# Câu hỏi do LLM (Claude) soạn dựa trên các văn bản tổng hợp trong data/raw/. Cần kiểm tra lại thủ công
+# một phần trước khi dùng kết quả để ra quyết định (xem README, mục "Bộ đánh giá").
+#
+# Mỗi mục:
+#   id        mã câu hỏi
+#   question  câu hỏi tiếng Việt, viết như người dùng hỏi
+#   doc_id    văn bản chứa câu trả lời (tên file không có đuôi)
+#   evidence  đoạn trích NGUYÊN VĂN chứa câu trả lời; eval/make_eval_set.py dùng nó để tìm id chunk đúng
+#   type      keyword    = câu hỏi dùng lại từ khoá chính của đoạn văn
+#             paraphrase = diễn đạt khác / từ đồng nghĩa / cần suy luận nhẹ (ví dụ "tiền cơm" ~ "phụ cấp ăn trưa")
+
+- id: q01
+  question: Tôi vào làm trễ mấy phút thì bị tính là vi phạm giờ giấc?
+  doc_id: 01_noi_quy_lao_dong
+  evidence: quá 15 phút được tính là đi muộn
+  type: paraphrase
+- id: q02
+  question: Khu vực hút thuốc của công ty nằm ở đâu?
+  doc_id: 01_noi_quy_lao_dong
+  evidence: Khu vực hút thuốc duy nhất nằm ở sân sau tầng trệt
+  type: keyword
+- id: q03
+  question: Nhân viên chính thức được hưởng bao nhiêu ngày phép năm?
+  doc_id: 02_nghi_phep_nam
+  evidence: được hưởng 12 ngày phép năm hưởng nguyên lương
+  type: keyword
+- id: q04
+  question: Khi cưới vợ, tôi được nghỉ mấy ngày mà vẫn có lương?
+  doc_id: 02_nghi_phep_nam
+  evidence: "Bản thân kết hôn: nghỉ 3 ngày"
+  type: paraphrase
+- id: q05
+  question: Nghỉ ốm từ 2 ngày liên tiếp trở lên thì phải nộp giấy tờ gì?
+  doc_id: 03_nghi_om_thai_san
+  evidence: nộp giấy chứng nhận nghỉ việc hưởng bảo hiểm xã hội
+  type: keyword
+- id: q06
+  question: Chồng được nghỉ bao lâu khi vợ đẻ?
+  doc_id: 03_nghi_om_thai_san
+  evidence: Lao động nam có vợ sinh con được nghỉ 7 ngày làm việc
+  type: paraphrase
+- id: q07
+  question: Mỗi tuần nhân viên được làm việc từ xa tối đa mấy ngày?
+  doc_id: 04_lam_viec_tu_xa
+  evidence: được làm việc từ xa tối đa 2 ngày mỗi tuần
+  type: keyword
+- id: q08
+  question: Làm ở nhà thì công ty có trả tiền mạng không?
+  doc_id: 04_lam_viec_tu_xa
+  evidence: hỗ trợ chi phí internet 300.000 đồng mỗi tháng
+  type: paraphrase
+- id: q09
+  question: Làm thêm giờ vào ngày lễ, Tết được trả bao nhiêu phần trăm lương?
+  doc_id: 05_cham_cong_lam_them_gio
+  evidence: "ngày nghỉ có hưởng lương: ít nhất 300%"
+  type: keyword
+- id: q10
+  question: Hôm qua tôi quên quẹt mặt lúc ra về thì phải làm gì?
+  doc_id: 05_cham_cong_lam_them_gio
+  evidence: gửi yêu cầu điều chỉnh công trên VTPortal trong vòng 3 ngày làm việc
+  type: paraphrase
+- id: q11
+  question: Khi nào thì tôi nhận được tiền công hằng tháng?
+  doc_id: 06_luong_thuong
+  evidence: vào ngày 5 của tháng kế tiếp
+  type: paraphrase
+- id: q12
+  question: Xếp loại B thì được thưởng hiệu suất quý bao nhiêu phần trăm?
+  doc_id: 06_luong_thuong
+  evidence: "Xếp loại B: 15%"
+  type: keyword
+- id: q13
+  question: Tiêu chuẩn khách sạn khi đi công tác ở Hà Nội tối đa bao nhiêu một đêm?
+  doc_id: 07_cong_tac_phi
+  evidence: "Hà Nội, TP.HCM: tối đa 1.200.000 đồng mỗi đêm"
+  type: keyword
+- id: q14
+  question: Đi gặp khách hàng ở Đà Nẵng, tôi có được đặt vé bay hay phải đi tàu?
+  doc_id: 07_cong_tac_phi
+  evidence: Với chặng đi trên 300 km, nhân viên được đi máy bay hạng phổ thông
+  type: paraphrase
+- id: q15
+  question: Khoản chi trên 20 triệu đồng do ai phê duyệt?
+  doc_id: 08_thanh_toan_chi_phi
+  evidence: "Trên 20.000.000 đồng: Giám đốc Tài chính phê duyệt"
+  type: keyword
+- id: q16
+  question: Tôi bỏ tiền túi mua đồ cho dự án thì trong bao lâu phải gửi hóa đơn để được trả lại?
+  doc_id: 08_thanh_toan_chi_phi
+  evidence: trong vòng 30 ngày kể từ ngày phát sinh chi phí
+  type: paraphrase
+- id: q17
+  question: Thông tin của công ty được phân thành mấy cấp độ?
+  doc_id: 09_bao_mat_thong_tin
+  evidence: Thông tin của Công ty được phân thành bốn cấp độ
+  type: keyword
+- id: q18
+  question: Nghỉ việc rồi thì tôi còn phải giữ bí mật cho công ty trong bao lâu?
+  doc_id: 09_bao_mat_thong_tin
+  evidence: Nghĩa vụ bảo mật tiếp tục có hiệu lực trong 2 năm sau khi nhân viên nghỉ việc
+  type: paraphrase
+- id: q19
+  question: Máy tính xách tay được thay mới theo chu kỳ bao nhiêu năm?
+  doc_id: 10_thiet_bi_cntt
+  evidence: được thay mới theo chu kỳ 4 năm
+  type: keyword
+- id: q20
+  question: Tôi cắm thẻ nhớ vào máy công ty để chép tài liệu được không?
+  doc_id: 10_thiet_bi_cntt
+  evidence: Cổng USB dùng cho thiết bị lưu trữ như ổ đĩa flash, ổ cứng di động bị chặn mặc định
+  type: paraphrase
+- id: q21
+  question: Mật khẩu tài khoản phải dài tối thiểu bao nhiêu ký tự?
+  doc_id: 11_mat_khau_xac_thuc
+  evidence: phải dài tối thiểu 12 ký tự
+  type: keyword
+- id: q22
+  question: Có được dùng mã OTP gửi qua tin nhắn điện thoại để đăng nhập không?
+  doc_id: 11_mat_khau_xac_thuc
+  evidence: mã xác thực qua tin nhắn SMS không được chấp nhận
+  type: paraphrase
+- id: q23
+  question: Phát hiện sự cố an ninh thông tin thì phải báo cáo trong vòng bao lâu?
+  doc_id: 12_su_co_an_ninh
+  evidence: phải báo cáo trong vòng 1 giờ
+  type: keyword
+- id: q24
+  question: Nghi máy tính bị dính virus thì có nên tắt máy ngay không?
+  doc_id: 12_su_co_an_ninh
+  evidence: nhưng không tắt nguồn máy
+  type: paraphrase
+- id: q25
+  question: Email của khách hàng cần được phản hồi trong bao lâu?
+  doc_id: 13_email_va_chat
+  evidence: Email của khách hàng cần được phản hồi hoặc xác nhận đã nhận trong vòng 4 giờ làm việc
+  type: keyword
+- id: q26
+  question: Sếp có được nhắn việc cho nhân viên lúc 10 giờ đêm không?
+  doc_id: 13_email_va_chat
+  evidence: không gửi tin nhắn công việc sau 20 giờ và vào ngày nghỉ
+  type: paraphrase
+- id: q27
+  question: Thưởng giới thiệu ứng viên cho vị trí thông thường là bao nhiêu?
+  doc_id: 14_tuyen_dung_gioi_thieu
+  evidence: 5.000.000 đồng cho vị trí thông thường
+  type: keyword
+- id: q28
+  question: Ứng viên có mấy ngày để trả lời offer?
+  doc_id: 14_tuyen_dung_gioi_thieu
+  evidence: Thư mời nhận việc được gửi qua email và có giá trị trong 7 ngày
+  type: paraphrase
+- id: q29
+  question: Nhân viên mới được phân công người đồng hành trong bao lâu?
+  doc_id: 15_hoi_nhap_nhan_vien_moi
+  evidence: một người đồng hành (buddy) trong 2 tháng đầu
+  type: keyword
+- id: q30
+  question: Trong thời gian thử việc nhân viên được hưởng bao nhiêu phần trăm lương?
+  doc_id: 15_hoi_nhap_nhan_vien_moi
+  evidence: được hưởng 100% mức lương chính thức
+  type: keyword
+- id: q31
+  question: Hợp đồng không xác định thời hạn phải báo trước bao nhiêu ngày khi muốn nghỉ việc?
+  doc_id: 16_nghi_viec_ban_giao
+  evidence: Ít nhất 45 ngày đối với hợp đồng không xác định thời hạn
+  type: keyword
+- id: q32
+  question: Sau khi nghỉ hẳn thì bao lâu tôi nhận được khoản tiền cuối cùng?
+  doc_id: 16_nghi_viec_ban_giao
+  evidence: Trong vòng 14 ngày làm việc kể từ ngày chấm dứt hợp đồng
+  type: paraphrase
+- id: q33
+  question: Ngân sách học tập cá nhân mỗi năm là bao nhiêu?
+  doc_id: 17_dao_tao_phat_trien
+  evidence: ngân sách học tập 8.000.000 đồng mỗi năm
+  type: keyword
+- id: q34
+  question: Thi chứng chỉ bị rớt thì ai trả tiền lệ phí?
+  doc_id: 17_dao_tao_phat_trien
+  evidence: Nếu không đạt, nhân viên tự chi trả lệ phí lần thi đó
+  type: paraphrase
+- id: q35
+  question: Tỷ lệ nhân viên xếp loại A trong mỗi phòng ban tối đa là bao nhiêu?
+  doc_id: 18_danh_gia_hieu_suat
+  evidence: tỷ lệ nhân viên xếp loại A trong mỗi phòng ban không vượt quá 15%
+  type: keyword
+- id: q36
+  question: Bảo hiểm sức khỏe bổ sung chi trả điều trị nội trú tối đa bao nhiêu?
+  doc_id: 19_phuc_loi_bao_hiem
+  evidence: "Điều trị nội trú: tối đa 100.000.000 đồng mỗi năm"
+  type: keyword
+- id: q37
+  question: Đám cưới của nhân viên thì công ty mừng bao nhiêu tiền?
+  doc_id: 19_phuc_loi_bao_hiem
+  evidence: "Nhân viên kết hôn: 2.000.000 đồng"
+  type: paraphrase
+- id: q38
+  question: Khi có hỏa hoạn trong tòa nhà thì có được đi thang máy xuống không?
+  doc_id: 20_an_toan_pccc
+  evidence: Tuyệt đối không sử dụng thang máy
+  type: paraphrase
+- id: q39
+  question: Báo cáo hành vi quấy rối tình dục qua kênh nào?
+  doc_id: 21_quy_tac_ung_xu
+  evidence: Ban Đạo đức qua email ethics@vanthach.example
+  type: keyword
+- id: q40
+  question: Đối tác biếu tôi một giỏ quà Tết trị giá 1 triệu thì có được nhận không?
+  doc_id: 22_xung_dot_loi_ich_qua_tang
+  evidence: Quà tặng từ 500.000 đồng trở lên phải được báo cáo cho Ban Đạo đức và Tuân thủ
+  type: paraphrase
+- id: q41
+  question: Đơn hàng từ 10 triệu đến 100 triệu đồng cần tối thiểu bao nhiêu báo giá?
+  doc_id: 23_mua_sam
+  evidence: tối thiểu 3 báo giá từ các nhà cung cấp độc lập
+  type: keyword
+- id: q42
+  question: Đặt phòng họp rồi mà không đến thì phòng có bị nhả cho người khác không?
+  doc_id: 24_phong_hop_tai_san_chung
+  evidence: lượt đặt sẽ tự động bị hủy để nhường cho người khác
+  type: paraphrase
+- id: q43
+  question: Công ty hỗ trợ bao nhiêu phần trăm phí gửi xe máy?
+  doc_id: 25_ra_vao_gui_xe
+  evidence: Công ty hỗ trợ 100% phí gửi xe máy hằng tháng
+  type: keyword
+- id: q44
+  question: Đội dev có được copy database production về máy để test không?
+  doc_id: 26_bao_ve_du_lieu_ca_nhan
+  evidence: Nghiêm cấm sử dụng dữ liệu thật của khách hàng trong môi trường phát triển và kiểm thử
+  type: paraphrase
+- id: q45
+  question: Mã mới phải đạt độ bao phủ kiểm thử tối thiểu bao nhiêu?
+  doc_id: 27_phat_trien_phat_hanh_phan_mem
+  evidence: Mã mới phải đạt độ bao phủ kiểm thử tối thiểu 70%
+  type: keyword
+- id: q46
+  question: Con tôi 4 tuổi đi du lịch cùng công ty thì có mất tiền không?
+  doc_id: 28_gan_ket_du_lich
+  evidence: trẻ em dưới 6 tuổi được miễn phí
+  type: paraphrase
+- id: q47
+  question: Mỗi ngày đi làm công ty hỗ trợ tiền cơm trưa bao nhiêu?
+  doc_id: 29_phu_cap_ho_tro
+  evidence: phụ cấp ăn trưa 50.000 đồng cho mỗi ngày làm việc thực tế
+  type: paraphrase
+- id: q48
+  question: Thời hạn giải quyết khiếu nại ở mỗi bước là bao lâu?
+  doc_id: 30_khieu_nai_to_giac
+  evidence: Thời hạn giải quyết ở mỗi bước không quá 15 ngày làm việc
+  type: keyword
+- id: q49
+  question: Tôi có thể dán mã nguồn dự án vào chatbot miễn phí trên mạng để nhờ sửa lỗi không?
+  doc_id: 31_su_dung_ai_tao_sinh
+  evidence: mã nguồn chưa công bố
+  type: paraphrase
+- id: q50
+  question: Điều kiện để được xét thăng chức là gì?
+  doc_id: 32_thang_tien_dieu_chuyen
+  evidence: đạt xếp loại A hoặc B trong hai kỳ đánh giá cuối năm gần nhất
+  type: keyword
